@@ -10,26 +10,34 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        rollDice()
 
         val rollButton: Button = findViewById(R.id.button)
-        rollButton.setOnClickListener { diceRoll() }
+        rollButton.setOnClickListener { rollDice() }
     }
 
-    private fun diceRoll() {
-        val dice = Dice(6)
-        val diceRoll = dice.roll()
-        val diceImage: ImageView = findViewById(R.id.diceImageView)
+private fun rollDice() {
+    val dice = Dice(6)
+    val diceRoll = dice.roll()
+    val diceImage: ImageView = findViewById(R.id.diceImageView)
+    //Roll dice when the app starts
 
-        val drawableResource = when (diceRoll) {
-            1 -> R.drawable.dice_1
-            2 -> R.drawable.dice_2
-            3 -> R.drawable.dice_3
-            4 -> R.drawable.dice_4
-            5 -> R.drawable.dice_5
-            else -> R.drawable.dice_6
-        }
 
-        diceImage.setImageResource(drawableResource)
+    //Determine which drawable resource ID to use based on the dice roll
+    val drawableResource = when (diceRoll) {
+        1 -> R.drawable.dice_1
+        2 -> R.drawable.dice_2
+        3 -> R.drawable.dice_3
+        4 -> R.drawable.dice_4
+        5 -> R.drawable.dice_5
+        else -> R.drawable.dice_6
+    }
+
+    //Update the ImageView with the correct drawable resource
+    diceImage.setImageResource(drawableResource)
+
+    // Update the content description
+    diceImage.contentDescription = diceRoll.toString()
     }
 }
 
